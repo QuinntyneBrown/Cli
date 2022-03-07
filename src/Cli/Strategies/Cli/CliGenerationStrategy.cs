@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.IO;
 
 namespace Cli.Strategies
 {
@@ -26,16 +25,19 @@ namespace Cli.Strategies
             _commandService.Start($"dotnet new sln -n {request.Model.Name}", request.Model.SolutionDirectory);
 
             _fileSystem.CreateDirectory(request.Model.SrcDirectory);
-            
-            _createProjectAndAddToSolution("console", request.Model.SolutionDirectory, request.Model.CliProjectPath, request.Model.CliDirectory);
 
-            _createProjectAndAddToSolution("classlib", request.Model.SolutionDirectory, request.Model.CoreProjectPath, request.Model.CoreDirectory);
+            foreach (var project in request.Model.Projects)
+            {
+                _createProjectAndAddToSolution(project.Type, request.Model.SolutionDirectory, project.Path, project.Directory);
+            }
 
-            _createProjectAndAddToSolution("classlib", request.Model.SolutionDirectory, request.Model.ApplicationProjectPath, request.Model.ApplicationDirectory);
-
-            _commandService.Start($"dotnet add {request.Model.ApplicationDirectory} reference {request.Model.CoreProjectPath}");
-
-            _commandService.Start($"dotnet add {request.Model.CliDirectory} reference {request.Model.ApplicationProjectPath}");
+            foreach (var project in request.Model.Projects)
+            {
+                foreach(var reference in project.References)
+                {
+                    _commandService.Start($"dotnet add {project.Directory} reference {reference.Path}");
+                }
+            }
 
             _commandService.Start("code .", request.Model.SolutionDirectory);
         }

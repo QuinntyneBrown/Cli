@@ -2,7 +2,7 @@
   "profiles": {
     "Cli": {
       "commandName": "Project",
-      "commandLineArgs": "-d C:\\sandbox --name Baz"
+      "commandLineArgs": "-d C:\\sandbox --name FooBaz1"
     }
   }
 }

@@ -24,6 +24,10 @@ namespace Cli.Models
             Name = name;
 
             Directory = $"{parentDirectory}{System.IO.Path.DirectorySeparatorChar}{name}";
+        }
+
+        public CliProjectModel()
+        {
 
         }
     }
