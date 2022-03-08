@@ -1,4 +1,6 @@
-﻿namespace Cli.Models
+﻿using System.Collections.Generic;
+
+namespace Cli.Models
 {
     public class FileModel
     {
@@ -8,12 +10,17 @@
         public string Directory { get; private set; }
         public string Extension { get; private set; } = "cs";
         public string Path => $"{Directory}{System.IO.Path.DirectorySeparatorChar}{Name}.{Extension}";
-        public FileModel(string template, string @namespace, string name, string directory)
+        public Dictionary<string, object> Tokens { get; private set; } = new();
+        public FileModel(string template, string @namespace, string name, string directory, Dictionary<string,object> tokens = null)
         {
             Template = template;
             Namespace = @namespace;
             Name = name;
             Directory = directory;
+            Tokens = tokens ?? new TokensBuilder()
+                .With(nameof(Name), (Token)Name)
+                .With(nameof(Namespace), (Token)Namespace)
+                .Build();
         }
     }
 }

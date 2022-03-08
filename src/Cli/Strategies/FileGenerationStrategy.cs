@@ -29,12 +29,7 @@ namespace Cli.Strategies
 
             var template = _templateLocator.Get(model.Template);
 
-            var tokens = new TokensBuilder()
-                .With(nameof(model.Name), (Token)model.Name)
-                .With(nameof(model.Namespace), (Token)model.Namespace)
-                .Build();
-
-            var result = _templateProcessor.Process(template, tokens);
+            var result = _templateProcessor.Process(template, model.Tokens); ;
 
             _fileSystem.WriteAllLines(model.Path, result);
         }
