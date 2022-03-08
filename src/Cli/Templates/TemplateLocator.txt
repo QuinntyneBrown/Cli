@@ -23,7 +23,7 @@ namespace {{ namespace }}
         }
         public string[] Get(string name)
         {
-            foreach (Assembly _assembly in AppDomain.CurrentDomain.GetAssemblies().Where(x => x.GetName().FullName.Contains(nameof(Cli))).Distinct())
+            foreach (Assembly _assembly in AppDomain.CurrentDomain.GetAssemblies().Where(x => x.GetName().FullName.Contains(nameof({{ namespace }}))).Distinct())
             {
                 var resourceName = _assembly.GetManifestResourceNames().GetResourceName(name);
 

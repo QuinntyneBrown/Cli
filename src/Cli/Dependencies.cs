@@ -4,6 +4,7 @@ using MediatR;
 using Cli.Strategies;
 using Microsoft.Extensions.Logging;
 using System;
+using Cli.Services;
 
 namespace Cli
 {
@@ -18,7 +19,7 @@ namespace Cli
             services.AddSingleton<ITemplateLocator, TemplateLocator>();
             services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
             services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
-
+            services.AddSingleton<ICsProjFileManager, CsProjFileManager>();
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
                 .Build();

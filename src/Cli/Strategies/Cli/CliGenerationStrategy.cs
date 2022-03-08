@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Cli.Services;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace Cli.Strategies
@@ -9,12 +10,12 @@ namespace Cli.Strategies
         private readonly IFileSystem _fileSystem;
         private readonly ILogger _logger;
         private readonly ProjectGenerationStrategy _projectGenerationStrategy;
-        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor)
+        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager)
         {
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService)); 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger);
+            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger, commandService, csProjFileManager);
         }
 
         public bool CanHandle(CreateCliRequest request) => true;
