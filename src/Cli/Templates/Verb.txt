@@ -3,7 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace {{ applicationNamespace }}
+namespace {{ namespace }}
 {
     internal class {{ namePascalCase }}
     {

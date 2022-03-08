@@ -15,9 +15,9 @@ namespace Cli.Models
         {
             Name = name;
             Directory = directory;
-            var coreProject = new CliProjectModel("classlib", $"{Name}.Core", SrcDirectory);
-            var applicationProject = new CliProjectModel("classlib", $"{Name}.Application", SrcDirectory, new() { coreProject });
-            var cliProject = new CliProjectModel("console", $"{Name}.Cli", SrcDirectory, new() { applicationProject });
+            var coreProject = CliProjectModel.CreateCore($"{Name}.Core", SrcDirectory);
+            var applicationProject = CliProjectModel.CreateApplication($"{Name}.Application", SrcDirectory, new() { coreProject });
+            var cliProject = CliProjectModel.CreateCli($"{Name}.Cli", SrcDirectory, new() { applicationProject });
             Projects.AddRange(new List<CliProjectModel> { coreProject, applicationProject, cliProject });
         }
         public CliModel()

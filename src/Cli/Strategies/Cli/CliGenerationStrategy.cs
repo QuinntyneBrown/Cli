@@ -8,12 +8,13 @@ namespace Cli.Strategies
         private readonly ICommandService _commandService;
         private readonly IFileSystem _fileSystem;
         private readonly ILogger _logger;
-
-        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem)
+        private readonly ProjectGenerationStrategy _projectGenerationStrategy;
+        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor)
         {
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService)); 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger);
         }
 
         public bool CanHandle(CreateCliRequest request) => true;
@@ -37,6 +38,11 @@ namespace Cli.Strategies
                 {
                     _commandService.Start($"dotnet add {project.Directory} reference {reference.Path}");
                 }
+            }
+
+            foreach (var project in request.Model.Projects)
+            {
+                _projectGenerationStrategy.Create(project);
             }
 
             _commandService.Start("code .", request.Model.SolutionDirectory);

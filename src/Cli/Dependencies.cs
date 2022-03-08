@@ -15,6 +15,8 @@ namespace Cli
             services.AddSingleton<ICliGenerationStrategyFactory, CliGenerationStrategyFactory>();
             services.AddSingleton<ICommandService, CommandService>();
             services.AddSingleton<IFileSystem, FileSystem>();
+            services.AddSingleton<ITemplateLocator, TemplateLocator>();
+            services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
             services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
 
             var configuration = new ConfigurationBuilder()

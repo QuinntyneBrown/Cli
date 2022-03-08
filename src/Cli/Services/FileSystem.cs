@@ -19,8 +19,6 @@ namespace Cli
 
         public void WriteAllLines(string path, string[] contents)
         {
-            Delete(path);
-
             File.WriteAllLines(path, contents);
         }
 
