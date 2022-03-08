@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 
-namespace {{ cliNamespace }}
+namespace {{ namespace }}
 {
     public class Dependencies
     {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace {{ coreNamespace }}
+namespace {{ namespace }}
 {
     public class FileSystem : IFileSystem
     {

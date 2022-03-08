@@ -1,6 +1,6 @@
 ﻿using SimpleNLG;
 
-namespace {{ coreNamespace }}
+namespace {{ namespace }}
 {
 
     public class TenseConverter : ITenseConverter

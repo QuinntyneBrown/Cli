@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace {{ coreNamespace }}
+namespace {{ namespace }}
 {
     public class CommandService : ICommandService
     {

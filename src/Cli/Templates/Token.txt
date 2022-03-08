@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace {{ coreNamespace }}
+namespace {{ namespace }}
 {
     public class Token : ValueObject
     {

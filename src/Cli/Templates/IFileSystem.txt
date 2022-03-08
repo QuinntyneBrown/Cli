@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace {{ coreNamespace }}
+namespace {{ namespace }}
 {
     public interface IFileSystem
     {
