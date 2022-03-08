@@ -40,6 +40,11 @@ namespace Cli.Strategies
             {
                 _csProjFileManager.AddUserSecretsId(model.Path);
             }
+
+            if(model.IsNugetPackage)
+            {
+                _csProjFileManager.AddNugetConfiguration(model);
+            }
         }
     }
 }

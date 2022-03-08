@@ -1,6 +1,7 @@
 ﻿using Cli.Services;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace Cli.Strategies
 {
@@ -28,7 +29,7 @@ namespace Cli.Strategies
 
             _fileSystem.CreateDirectory(request.Model.SrcDirectory);
 
-            foreach (var project in request.Model.Projects)
+            foreach (var project in request.Model.Projects.OrderByDescending(x => x.Order))
             {
                 _createProjectAndAddToSolution(project.Type, request.Model.SolutionDirectory, project.Path, project.Directory);
             }

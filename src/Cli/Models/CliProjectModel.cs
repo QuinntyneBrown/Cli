@@ -13,6 +13,8 @@ namespace Cli.Models
         public List<FileModel> Files { get; private set; } = new List<FileModel>();
         public List<PackageModel> Packages { get; private set; } = new();
         public bool HasSecrets { get; set; }
+        public bool IsNugetPackage { get; set; }
+        public int Order { get; set; } = 0;
 
         public CliProjectModel(string type, string name, string parentDirectory, List<CliProjectModel> references)
             :this(type, name, parentDirectory)
@@ -35,9 +37,16 @@ namespace Cli.Models
 
             model.HasSecrets = true;
 
+            model.IsNugetPackage = true;
+
+            model.Order = 1;
+
             model.Files.Add(new FileModel("Program", model.Namespace, "Program", model.Directory));
 
-            model.Files.Add(new FileModel("Dependencies", model.Namespace, "Dependencies", model.Directory));
+            model.Files.Add(new FileModel("Dependencies", model.Namespace, "Dependencies", model.Directory, new TokensBuilder()
+                .With(nameof(model.Namespace), (Token)model.Namespace)
+                .With("ApplicationNamespace",(Token)model.Name.Replace("Cli","Application"))
+                .Build()));
 
 
             model.Packages.Add(new("Serilog.Extensions.Hosting", "4.2.0"));
@@ -126,7 +135,7 @@ namespace Cli.Models
         {
             var model = new CliProjectModel("classlib", name, parentDirectory, references);
 
-            
+            model.Files.Add(new ("Default", model.Namespace, "Default", model.Directory));
 
             return model;
         }

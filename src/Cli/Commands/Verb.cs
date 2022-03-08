@@ -14,6 +14,7 @@ namespace Cli
         internal class Request : IRequest<Unit> {
             [Value(0)]
             public string Name { get; set; }
+
             [Option('n')]
             public string Namespace { get; set; } = "Commands";
 
