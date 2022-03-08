@@ -12,9 +12,9 @@ namespace Cli.Models
         public List<CliProjectModel> References { get; set; } = new List<CliProjectModel>();
         public List<FileModel> Files { get; private set; } = new List<FileModel>();
         public List<PackageModel> Packages { get; private set; } = new();
-        public bool HasSecrets { get; set; }
-        public bool IsNugetPackage { get; set; }
-        public int Order { get; set; } = 0;
+        public bool HasSecrets { get; init; }
+        public bool IsNugetPackage { get; init; }
+        public int Order { get; init; } = 0;
 
         public CliProjectModel(string type, string name, string parentDirectory, List<CliProjectModel> references)
             :this(type, name, parentDirectory)
@@ -33,13 +33,12 @@ namespace Cli.Models
 
         public static CliProjectModel CreateCli(string name, string parentDirectory, List<CliProjectModel> references)
         {
-            var model = new CliProjectModel("console", name, parentDirectory, references);
-
-            model.HasSecrets = true;
-
-            model.IsNugetPackage = true;
-
-            model.Order = 1;
+            var model = new CliProjectModel("console", name, parentDirectory, references)
+            {
+                HasSecrets = true,
+                IsNugetPackage = true,
+                Order = 1
+            };
 
             model.Files.Add(new FileModel("Program", model.Namespace, "Program", model.Directory));
 
