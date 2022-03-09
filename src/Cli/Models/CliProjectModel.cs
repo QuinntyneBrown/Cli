@@ -47,6 +47,7 @@ namespace Cli.Models
                 .With("ApplicationNamespace",(Token)model.Name.Replace("Cli","Application"))
                 .Build()));
 
+            model.Files.Add(new FileModel("Update", model.Namespace, "update", model.Directory, "ps1"));
 
             model.Packages.Add(new("Serilog.Extensions.Hosting", "4.2.0"));
 
@@ -67,35 +68,35 @@ namespace Cli.Models
         {
             var model = new CliProjectModel("classlib", name, parentDirectory);
 
-            model.Files.Add(new FileModel("Token", model.Namespace, "Token", model.Directory));
-
-            model.Files.Add(new FileModel("NamingConvention", model.Namespace, "NamingConvention", model.Directory));
-
-            model.Files.Add(new FileModel("CommandService", model.Namespace, "CommandService", model.Directory));
-
-            model.Files.Add(new FileModel("ICommandService", model.Namespace, "ICommandService", model.Directory));
-
-            model.Files.Add(new FileModel("FileSystem", model.Namespace, "FileSystem", model.Directory));
-
-            model.Files.Add(new FileModel("IFileSystem", model.Namespace, "IFileSystem", model.Directory));
-
-            model.Files.Add(new FileModel("NamingConventionConverter", model.Namespace, "NamingConventionConverter", model.Directory));
-
-            model.Files.Add(new FileModel("INamingConventionConverter", model.Namespace, "INamingConventionConverter", model.Directory));
-
-            model.Files.Add(new FileModel("TenseConverter", model.Namespace, "TenseConverter", model.Directory));
-
-            model.Files.Add(new FileModel("ITenseConverter", model.Namespace, "ITenseConverter", model.Directory));
-
-            model.Files.Add(new FileModel("TemplateLocator", model.Namespace, "TemplateLocator", model.Directory));
-
-            model.Files.Add(new FileModel("ITemplateLocator", model.Namespace, "ITemplateLocator", model.Directory));
-
-            model.Files.Add(new FileModel("TokensBuilder", model.Namespace, "TokensBuilder", model.Directory));
-
-            model.Files.Add(new FileModel("LiquidTemplateProcessor", model.Namespace, "LiquidTemplateProcessor", model.Directory));
-
-            model.Files.Add(new FileModel("ITemplateProcessor", model.Namespace, "ITemplateProcessor", model.Directory));
+            model.Files.Add(new ("Token", model.Namespace, "Token", model.Directory));
+            
+            model.Files.Add(new ("NamingConvention", model.Namespace, "NamingConvention", model.Directory));
+            
+            model.Files.Add(new ("CommandService", model.Namespace, "CommandService", model.Directory));
+            
+            model.Files.Add(new ("ICommandService", model.Namespace, "ICommandService", model.Directory));
+            
+            model.Files.Add(new ("FileSystem", model.Namespace, "FileSystem", model.Directory));
+            
+            model.Files.Add(new ("IFileSystem", model.Namespace, "IFileSystem", model.Directory));
+            
+            model.Files.Add(new ("NamingConventionConverter", model.Namespace, "NamingConventionConverter", model.Directory));
+            
+            model.Files.Add(new ("INamingConventionConverter", model.Namespace, "INamingConventionConverter", model.Directory));
+            
+            model.Files.Add(new ("TenseConverter", model.Namespace, "TenseConverter", model.Directory));
+            
+            model.Files.Add(new ("ITenseConverter", model.Namespace, "ITenseConverter", model.Directory));
+            
+            model.Files.Add(new ("TemplateLocator", model.Namespace, "TemplateLocator", model.Directory));
+            
+            model.Files.Add(new ("ITemplateLocator", model.Namespace, "ITemplateLocator", model.Directory));
+            
+            model.Files.Add(new ("TokensBuilder", model.Namespace, "TokensBuilder", model.Directory));
+            
+            model.Files.Add(new ("LiquidTemplateProcessor", model.Namespace, "LiquidTemplateProcessor", model.Directory));
+            
+            model.Files.Add(new ("ITemplateProcessor", model.Namespace, "ITemplateProcessor", model.Directory));
 
             model.Packages.Add(new("Microsoft.Extensions.Configuration", "6.0.0"));
 

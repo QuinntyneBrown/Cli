@@ -15,6 +15,13 @@ namespace {{ namespace }}
                 .Build();
 
             services.AddSingleton<IConfiguration>(_ => configuration);
+
+            services.AddSingleton<ICommandService, CommandService>();
+            services.AddSingleton<IFileSystem, FileSystem>();
+            services.AddSingleton<ITemplateLocator, TemplateLocator>();
+            services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
+            services.AddSingleton<INamingConventionConverter, NamingConventionConverter>();
+            services.AddSingleton<ITenseConverter, TenseConverter>();
             
         }
     }

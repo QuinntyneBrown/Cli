@@ -1,0 +1,3 @@
+﻿dotnet tool uninstall -g {{ namespace }}
+dotnet pack
+dotnet tool install --global --add-source ./nupkg {{ namespace }}

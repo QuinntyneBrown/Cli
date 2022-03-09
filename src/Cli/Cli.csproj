@@ -30,6 +30,7 @@
     <None Remove="Templates\TenseConverter.txt" />
     <None Remove="Templates\Token.txt" />
     <None Remove="Templates\TokensBuilder.txt" />
+    <None Remove="Templates\Update.txt" />
     <None Remove="Templates\Verb.txt" />
   </ItemGroup>
 
@@ -37,6 +38,7 @@
     <EmbeddedResource Include="Templates\Default.txt" />
     <EmbeddedResource Include="Templates\Dependencies.txt" />
     <EmbeddedResource Include="Templates\Program.txt" />
+    <EmbeddedResource Include="Templates\Update.txt" />
   </ItemGroup>
 
   <ItemGroup>

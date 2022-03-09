@@ -22,5 +22,11 @@ namespace Cli.Models
                 .With(nameof(Namespace), (Token)Namespace)
                 .Build();
         }
+
+        public FileModel(string template, string @namespace, string name, string directory, string extension, Dictionary<string, object> tokens = null)
+            :this(template, @namespace, name, directory)
+        {
+            Extension = extension;
+        }
     }
 }
