@@ -1,6 +1,7 @@
 ﻿using Cli.Models;
 using Cli.Services;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace Cli.Strategies
 {
@@ -27,6 +28,11 @@ namespace Cli.Strategies
 
         public void Create(CliProjectModel model)
         {
+            foreach(var path in Directory.GetFiles(model.Directory,"*.cs",SearchOption.AllDirectories))
+            {
+                System.IO.File.Delete(path);
+            }
+
             foreach(var package in model.Packages)
             {
                 _commandService.Start($"dotnet add package {package.Name} --version {package.Version}",model.Directory);

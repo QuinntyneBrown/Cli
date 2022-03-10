@@ -2,7 +2,7 @@
   "profiles": {
     "Cli": {
       "commandName": "Project",
-      "commandLineArgs": "--name Choosen3 -d C:\\sandbox"
+      "commandLineArgs": "--name Teach -d C:\\sandbox"
     }
   }
 }
