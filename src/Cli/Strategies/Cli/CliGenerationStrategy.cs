@@ -11,12 +11,15 @@ namespace Cli.Strategies
         private readonly IFileSystem _fileSystem;
         private readonly ILogger _logger;
         private readonly ProjectGenerationStrategy _projectGenerationStrategy;
-        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager)
+        private readonly ISolutionNamespaceProvider _solutionNamespaceProvider;
+        public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
         {
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService)); 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger, commandService, csProjFileManager);
+            _solutionNamespaceProvider = solutionNamespaceProvider ?? throw new ArgumentNullException(nameof(solutionNamespaceProvider));
+            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger, commandService, csProjFileManager, solutionNamespaceProvider);
+            
         }
 
         public bool CanHandle(CreateCliRequest request) => true;

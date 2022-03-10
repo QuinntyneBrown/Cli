@@ -14,7 +14,7 @@ namespace Cli.Services
 
             var file = Directory.GetFiles(string.Join(Path.DirectorySeparatorChar, parts.Take(parts.Length - depth)), searchPattern).FirstOrDefault();
 
-            return file ?? Get(searchPattern,directory,depth++);
+            return file ?? Get(searchPattern, directory, depth + 1);
 
         }
     }

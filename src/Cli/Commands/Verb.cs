@@ -30,13 +30,14 @@ namespace Cli
             private readonly ITemplateProcessor _templateProcessor;
             private readonly INamespaceProvider _namespaceProvider;
             private readonly ILogger _logger;
-
+            private readonly ISolutionNamespaceProvider _solutionNamespaceProvider;
             public Handler(
                 IFileSystem fileSystem,
                 ITemplateLocator templateLocator,
                 ITemplateProcessor templateProcessor,
                 ILogger logger,
-                INamespaceProvider namespaceProvider
+                INamespaceProvider namespaceProvider,
+                ISolutionNamespaceProvider solutionNamespaceProvider
                 )
             {
                 _fileSystem = fileSystem;
@@ -44,13 +45,14 @@ namespace Cli
                 _templateLocator = templateLocator;
                 _logger = logger;
                 _namespaceProvider = namespaceProvider;
+                _solutionNamespaceProvider = solutionNamespaceProvider;
             }
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
                 FileModel model = new FileModel("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
 
-                new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor,_logger).Create(model);
+                new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor, _solutionNamespaceProvider, _logger).Create(model);
 
                 return new();
             }

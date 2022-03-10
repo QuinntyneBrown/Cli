@@ -21,6 +21,9 @@ namespace Cli
             services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
             services.AddSingleton<ICsProjFileManager, CsProjFileManager>();
             services.AddSingleton<INamespaceProvider, NamespaceProvider>();
+            services.AddSingleton<IFileProvider, FileProvider>();
+            services.AddSingleton<ISolutionNamespaceProvider, SolutionNamespaceProvider>();
+
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<Program>(optional:true)
                 .Build();

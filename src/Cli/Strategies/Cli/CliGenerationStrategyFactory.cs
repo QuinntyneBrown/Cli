@@ -10,11 +10,11 @@ namespace Cli.Strategies
     {
         private readonly List<ICliGenerationStrategy> _strategies;
 
-        public CliGenerationStrategyFactory(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager)
+        public CliGenerationStrategyFactory(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
         {
             _strategies = new List<ICliGenerationStrategy>()
             {
-                new CliGenerationStrategy(commandService,logger,fileSystem, templateLocator, templateProcessor, csProjFileManager)
+                new CliGenerationStrategy(commandService,logger,fileSystem, templateLocator, templateProcessor, csProjFileManager, solutionNamespaceProvider)
             };
         }
 

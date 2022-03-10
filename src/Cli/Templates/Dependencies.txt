@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using {{ solutionNamespace}}.Core;
 
 namespace {{ namespace }}
 {

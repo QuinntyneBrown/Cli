@@ -2,7 +2,7 @@
   "profiles": {
     "Cli": {
       "commandName": "Project",
-      "commandLineArgs": "--name HowDoes -d C:\\sandbox"
+      "commandLineArgs": "--name Choosen3 -d C:\\sandbox"
     }
   }
 }
