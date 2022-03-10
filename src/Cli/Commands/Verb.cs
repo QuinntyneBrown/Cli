@@ -1,4 +1,5 @@
 using Cli.Models;
+using Cli.Services;
 using Cli.Strategies;
 using CommandLine;
 using MediatR;
@@ -15,8 +16,8 @@ namespace Cli
             [Value(0)]
             public string Name { get; set; }
 
-            [Option('n')]
-            public string Namespace { get; set; } = "Commands";
+            [Option('n', Required = false)]
+            public string Namespace { get; set; }
 
             [Option('d', Required = false)]
             public string Directory { get; set; } = System.Environment.CurrentDirectory;
@@ -27,24 +28,27 @@ namespace Cli
             private readonly IFileSystem _fileSystem;
             private readonly ITemplateLocator _templateLocator;
             private readonly ITemplateProcessor _templateProcessor;
+            private readonly INamespaceProvider _namespaceProvider;
             private readonly ILogger _logger;
 
             public Handler(
                 IFileSystem fileSystem,
                 ITemplateLocator templateLocator,
                 ITemplateProcessor templateProcessor,
-                ILogger logger
+                ILogger logger,
+                INamespaceProvider namespaceProvider
                 )
             {
                 _fileSystem = fileSystem;
                 _templateProcessor = templateProcessor;
                 _templateLocator = templateLocator;
                 _logger = logger;
+                _namespaceProvider = namespaceProvider;
             }
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                FileModel model = new FileModel("Verb", request.Namespace, request.Name, request.Directory);
+                FileModel model = new FileModel("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
 
                 new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor,_logger).Create(model);
 

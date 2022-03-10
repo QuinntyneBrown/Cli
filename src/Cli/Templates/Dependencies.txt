@@ -22,6 +22,7 @@ namespace {{ namespace }}
             services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
             services.AddSingleton<INamingConventionConverter, NamingConventionConverter>();
             services.AddSingleton<ITenseConverter, TenseConverter>();
+            services.AddSingleton<INamespaceProvider, NamespaceProvider>();
             
         }
     }

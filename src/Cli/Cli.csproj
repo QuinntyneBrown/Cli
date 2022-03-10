@@ -16,6 +16,7 @@
     <None Remove="Templates\FileSystem.txt" />
     <None Remove="Templates\ICommandService.txt" />
     <None Remove="Templates\IFileSystem.txt" />
+    <None Remove="Templates\INamespaceProvider.txt" />
     <None Remove="Templates\INamingConventionConverter.txt" />
     <None Remove="Templates\InMemoryFileSystem.txt" />
     <None Remove="Templates\ITemplateLocator.txt" />
@@ -23,6 +24,7 @@
     <None Remove="Templates\ITenseConverter.txt" />
     <None Remove="Templates\ITokenBuilder.txt" />
     <None Remove="Templates\LiquidTemplateProcessor.txt" />
+    <None Remove="Templates\NamespaceProvider.txt" />
     <None Remove="Templates\NamingConvention.txt" />
     <None Remove="Templates\NamingConventionConverter.txt" />
     <None Remove="Templates\Program.txt" />
@@ -37,6 +39,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\Default.txt" />
     <EmbeddedResource Include="Templates\Dependencies.txt" />
+    <EmbeddedResource Include="Templates\INamespaceProvider.txt" />
+    <EmbeddedResource Include="Templates\NamespaceProvider.txt" />
     <EmbeddedResource Include="Templates\Program.txt" />
     <EmbeddedResource Include="Templates\Update.txt" />
   </ItemGroup>

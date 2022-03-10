@@ -98,6 +98,11 @@ namespace Cli.Models
             
             model.Files.Add(new ("ITemplateProcessor", model.Namespace, "ITemplateProcessor", model.Directory));
 
+            model.Files.Add(new("NamespaceProvider", model.Namespace, "NamespaceProvider", model.Directory));
+
+            model.Files.Add(new("INamespaceProvider", model.Namespace, "INamespaceProvider", model.Directory));
+
+
             model.Packages.Add(new("Microsoft.Extensions.Configuration", "6.0.0"));
 
             model.Packages.Add(new("CSharpFunctionalExtensions", "2.15.0"));

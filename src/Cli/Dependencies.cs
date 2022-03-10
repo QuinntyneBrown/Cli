@@ -20,8 +20,9 @@ namespace Cli
             services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
             services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
             services.AddSingleton<ICsProjFileManager, CsProjFileManager>();
+            services.AddSingleton<INamespaceProvider, NamespaceProvider>();
             var configuration = new ConfigurationBuilder()
-                .AddUserSecrets<Program>()
+                .AddUserSecrets<Program>(optional:true)
                 .Build();
 
             services.AddSingleton<IConfiguration>(_ => configuration);
