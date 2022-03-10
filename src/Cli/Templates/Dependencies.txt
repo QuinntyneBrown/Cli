@@ -11,7 +11,7 @@ namespace {{ namespace }}
             services.AddMediatR(typeof({{ applicationNamespace }}.Default));
 
             var configuration = new ConfigurationBuilder()
-                .AddUserSecrets<Program>()
+                .AddUserSecrets<Program>(optional:true)
                 .Build();
 
             services.AddSingleton<IConfiguration>(_ => configuration);
@@ -23,6 +23,7 @@ namespace {{ namespace }}
             services.AddSingleton<INamingConventionConverter, NamingConventionConverter>();
             services.AddSingleton<ITenseConverter, TenseConverter>();
             services.AddSingleton<INamespaceProvider, NamespaceProvider>();
+            services.AddSingleton<IFileProvider, FileProvider>();
             
         }
     }

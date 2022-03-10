@@ -102,6 +102,9 @@ namespace Cli.Models
 
             model.Files.Add(new("INamespaceProvider", model.Namespace, "INamespaceProvider", model.Directory));
 
+            model.Files.Add(new("FileProvider", model.Namespace, "FileProvider", model.Directory));
+
+            model.Files.Add(new("IFileProvider", model.Namespace, "IFileProvider", model.Directory));
 
             model.Packages.Add(new("Microsoft.Extensions.Configuration", "6.0.0"));
 

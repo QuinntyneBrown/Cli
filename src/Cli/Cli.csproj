@@ -13,8 +13,10 @@
     <None Remove="Templates\CommandService.txt" />
     <None Remove="Templates\Default.txt" />
     <None Remove="Templates\Dependencies.txt" />
+    <None Remove="Templates\FileProvider.txt" />
     <None Remove="Templates\FileSystem.txt" />
     <None Remove="Templates\ICommandService.txt" />
+    <None Remove="Templates\IFileProvider.txt" />
     <None Remove="Templates\IFileSystem.txt" />
     <None Remove="Templates\INamespaceProvider.txt" />
     <None Remove="Templates\INamingConventionConverter.txt" />
@@ -39,6 +41,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\Default.txt" />
     <EmbeddedResource Include="Templates\Dependencies.txt" />
+    <EmbeddedResource Include="Templates\FileProvider.txt" />
+    <EmbeddedResource Include="Templates\IFileProvider.txt" />
     <EmbeddedResource Include="Templates\INamespaceProvider.txt" />
     <EmbeddedResource Include="Templates\NamespaceProvider.txt" />
     <EmbeddedResource Include="Templates\Program.txt" />
