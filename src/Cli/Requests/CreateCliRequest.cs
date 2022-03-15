@@ -8,7 +8,7 @@ namespace Cli
 
         public CreateCliRequest(string name, string directory)
         {
-            Model = new SolutionModel(name, directory);
+            Model = SolutionModel.CreateCli(name, directory);
         }
     }
 }

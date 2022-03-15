@@ -2,13 +2,13 @@
 
 namespace Cli.Models
 {
-    public class FileModel
+    public partial class FileModel
     {
         public string Template { get; private set; }
         public string Name { get; set; }
         public string Namespace { get; set; }
         public string Directory { get; private set; }
-        public string Extension { get; private set; } = "cs";
+        public string Extension { get; private set; }
         public string Path => $"{Directory}{System.IO.Path.DirectorySeparatorChar}{Name}.{Extension}";
         public Dictionary<string, object> Tokens { get; private set; } = new();
         public FileModel(string template, string @namespace, string name, string directory, Dictionary<string,object> tokens = null)

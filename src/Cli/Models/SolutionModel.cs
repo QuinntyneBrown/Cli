@@ -3,7 +3,9 @@ using System.IO;
 
 namespace Cli.Models
 {
-    public class SolutionModel
+
+
+    public partial class SolutionModel
     {
         public List<ProjectModel> Projects { get; private set; } = new();
         public string Name { get; private set; }
@@ -15,11 +17,8 @@ namespace Cli.Models
         {
             Name = name;
             Directory = directory;
-            var coreProject = ProjectModel.CreateCore($"{Name}.Core", SrcDirectory);
-            var applicationProject = ProjectModel.CreateApplication($"{Name}.Application", SrcDirectory, new() { coreProject });
-            var cliProject = ProjectModel.CreateCli($"{Name}.Cli", SrcDirectory, new() { applicationProject });
-            Projects.AddRange(new List<ProjectModel> { coreProject, applicationProject, cliProject });
         }
+
         public SolutionModel()
         {
 
