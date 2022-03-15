@@ -4,11 +4,11 @@ namespace Cli
 {
     public class CreateCliRequest
     {
-        public SolutionModel Model { get; private set; }
+        public SolutionModel Model { get; init; }
 
-        public CreateCliRequest(string name, string directory)
+        public CreateCliRequest(SolutionModel model)
         {
-            Model = SolutionModel.CreateCli(name, directory);
+            Model = model;
         }
     }
 }

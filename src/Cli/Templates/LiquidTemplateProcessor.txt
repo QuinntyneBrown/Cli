@@ -8,6 +8,12 @@ namespace {{ namespace }}
 {
     public class LiquidTemplateProcessor : ITemplateProcessor
     {
+        private readonly ILogger _logger;
+        public LiquidTemplateProcessor(ILogger logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         public string[] Process(string[] template, IDictionary<string, object> tokens, string[] ignoreTokens = null)
         {
             Hash hash = default;
@@ -40,9 +46,9 @@ namespace {{ namespace }}
             }
             catch (Exception e)
             {
-                Console.WriteLine(nameof(LiquidTemplateProcessor));
+                _logger.LogError(nameof(LiquidTemplateProcessor));
 
-                throw e;
+                throw;
             }
         }
 
@@ -58,13 +64,10 @@ namespace {{ namespace }}
             }
             catch (Exception e)
             {
-                Console.WriteLine(nameof(LiquidTemplateProcessor));
+                _logger.LogError(nameof(LiquidTemplateProcessor));
 
-                throw e;
+                throw;
             }
         }
     }
-
-
-
 }

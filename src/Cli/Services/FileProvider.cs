@@ -9,7 +9,7 @@ namespace Cli.Services
         {
             var parts = directory.Split(Path.DirectorySeparatorChar);
 
-            if (parts.Length == depth)
+            if (parts.Length == depth || !Directory.Exists(directory))
                 return "FileNotFound";
 
             var file = Directory.GetFiles(string.Join(Path.DirectorySeparatorChar, parts.Take(parts.Length - depth)), searchPattern).FirstOrDefault();

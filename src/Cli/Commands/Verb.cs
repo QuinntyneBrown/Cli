@@ -32,13 +32,15 @@ namespace Cli
             private readonly INamespaceProvider _namespaceProvider;
             private readonly ILogger _logger;
             private readonly ISolutionNamespaceProvider _solutionNamespaceProvider;
+            private readonly IFileFactory _fileFactory;
             public Handler(
                 IFileSystem fileSystem,
                 ITemplateLocator templateLocator,
                 ITemplateProcessor templateProcessor,
                 ILogger logger,
                 INamespaceProvider namespaceProvider,
-                ISolutionNamespaceProvider solutionNamespaceProvider
+                ISolutionNamespaceProvider solutionNamespaceProvider,
+                IFileFactory fileFactory
                 )
             {
                 _fileSystem = fileSystem;
@@ -47,13 +49,14 @@ namespace Cli
                 _logger = logger;
                 _namespaceProvider = namespaceProvider;
                 _solutionNamespaceProvider = solutionNamespaceProvider;
+                _fileFactory = fileFactory;
             }
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                FileModel model = FileFactory.CreateCSharp("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
+                FileModel model = _fileFactory.CreateCSharp("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
 
-                new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor, _solutionNamespaceProvider, _logger).Create(model);
+                new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor, _logger).Create(model);
 
                 return new();
             }

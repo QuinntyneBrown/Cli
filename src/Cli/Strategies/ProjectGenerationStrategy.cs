@@ -17,12 +17,11 @@ namespace Cli.Strategies
             ITemplateProcessor templateProcessor,
             ILogger logger,
             ICommandService commandService,
-            ICsProjFileManager csProjFileManager,
-            ISolutionNamespaceProvider solutionNamespaceProvider
+            ICsProjFileManager csProjFileManager
             )
         {
             _commandService = commandService;
-            _fileGenerationStrategy = new(fileSystem, templateLocator, templateProcessor, solutionNamespaceProvider, logger);
+            _fileGenerationStrategy = new(fileSystem, templateLocator, templateProcessor, logger);
             _csProjFileManager = csProjFileManager;
         }
 

@@ -18,7 +18,7 @@ namespace Cli.Strategies
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
             _solutionNamespaceProvider = solutionNamespaceProvider ?? throw new ArgumentNullException(nameof(solutionNamespaceProvider));
-            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger, commandService, csProjFileManager, solutionNamespaceProvider);
+            _projectGenerationStrategy = new ProjectGenerationStrategy(fileSystem, templateLocator, templateProcessor, logger, commandService, csProjFileManager);
             
         }
 

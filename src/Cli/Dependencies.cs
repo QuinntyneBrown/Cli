@@ -5,6 +5,8 @@ using Cli.Strategies;
 using Microsoft.Extensions.Logging;
 using System;
 using Cli.Services;
+using Cli.Factories;
+using Cli.Models;
 
 namespace Cli
 {
@@ -23,6 +25,9 @@ namespace Cli
             services.AddSingleton<INamespaceProvider, NamespaceProvider>();
             services.AddSingleton<IFileProvider, FileProvider>();
             services.AddSingleton<ISolutionNamespaceProvider, SolutionNamespaceProvider>();
+            services.AddSingleton<IFileFactory, FileFactory>();
+            services.AddSingleton<ISolutionFactory, SolutionFactory>();
+            services.AddSingleton<IProjectFactory, ProjectFactory>();
 
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<Program>(optional:true)

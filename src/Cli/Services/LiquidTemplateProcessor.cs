@@ -1,4 +1,5 @@
 ﻿using DotLiquid;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -8,6 +9,12 @@ namespace Cli
 {
     public class LiquidTemplateProcessor : ITemplateProcessor
     {
+        private readonly ILogger _logger;
+        public LiquidTemplateProcessor(ILogger logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         public string[] Process(string[] template, IDictionary<string, object> tokens, string[] ignoreTokens = null)
         {
             Hash hash = default;
@@ -40,9 +47,9 @@ namespace Cli
             }
             catch (Exception e)
             {
-                Console.WriteLine(nameof(LiquidTemplateProcessor));
+                _logger.LogError(nameof(LiquidTemplateProcessor));
 
-                throw e;
+                throw;
             }
         }
 
@@ -58,13 +65,11 @@ namespace Cli
             }
             catch (Exception e)
             {
-                Console.WriteLine(nameof(LiquidTemplateProcessor));
+                _logger.LogError(nameof(LiquidTemplateProcessor));
 
-                throw e;
+                throw;
             }
         }
     }
-
-
 
 }

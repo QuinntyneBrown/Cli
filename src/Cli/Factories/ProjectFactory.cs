@@ -1,0 +1,147 @@
+﻿using Cli.Factories;
+using System.Collections.Generic;
+
+namespace Cli.Models
+{
+    public interface IProjectFactory
+    {
+        ProjectModel CreateCli(string name, string parentDirectory, List<ProjectModel> references);
+        ProjectModel CreateCore(string name, string parentDirectory);
+        ProjectModel CreateApplication(string name, string parentDirectory, List<ProjectModel> references);
+    }
+    public class ProjectFactory: IProjectFactory
+    {
+        private readonly IFileFactory _fileFactory;
+
+        public ProjectFactory(IFileFactory fileFactory)
+        {
+            _fileFactory = fileFactory;
+        }
+
+        private FileModel _createCSharp(string template, string @namespace, string name, string directory, Dictionary<string,object> tokens = null)
+        {
+            return _fileFactory.CreateCSharp(template, @namespace, name, directory, tokens);
+        }
+
+        private FileModel _createPowershell(string template, string name, string directory)
+        {
+            return _fileFactory.CreatePowershell(template, name, directory);
+        }
+        public ProjectModel CreateCli(string name, string parentDirectory, List<ProjectModel> references)
+        {
+            var model = new ProjectModel("console", name, parentDirectory, references)
+            {
+                HasSecrets = true,
+                IsNugetPackage = true,
+                Order = 1
+            };
+
+            model.Files.Add(_createCSharp("Program", model.Namespace, "Program", model.Directory));
+
+            model.Files.Add(_createCSharp("Dependencies", model.Namespace, "Dependencies", model.Directory, new TokensBuilder()
+                .With(nameof(model.Namespace), (Token)model.Namespace)
+                .With("ApplicationNamespace",(Token)model.Name.Replace("Cli","Application"))
+                .Build()));
+
+            model.Files.Add(_createPowershell("Update", "update", model.Directory));
+
+            model.Packages.Add(new("Serilog.Extensions.Hosting", "4.2.0"));
+
+            model.Packages.Add(new("Serilog.Sinks.Console", "2.3.0"));
+
+            model.Packages.Add(new("Serilog.Sinks.Seq", "2.3.0"));
+
+            model.Packages.Add(new("SerilogTimingse", "2.3.0"));
+
+            model.Packages.Add(new("MediatR.Extensions.Microsoft.DependencyInjection", "10.0.1"));
+
+            model.Packages.Add(new("Microsoft.Extensions.Configuration.UserSecrets", "5.0.0"));
+
+            return model;
+        }
+
+        public ProjectModel CreateCore(string name, string parentDirectory)
+        {
+            var model = new ProjectModel("classlib", name, parentDirectory);
+
+            model.Files.Add(_createCSharp("Token", model.Namespace, "Token", model.Directory));
+            
+            model.Files.Add(_createCSharp("NamingConvention", model.Namespace, "NamingConvention", model.Directory));
+            
+            model.Files.Add(_createCSharp("CommandService", model.Namespace, "CommandService", model.Directory));
+            
+            model.Files.Add(_createCSharp("ICommandService", model.Namespace, "ICommandService", model.Directory));
+            
+            model.Files.Add(_createCSharp("FileSystem", model.Namespace, "FileSystem", model.Directory));
+            
+            model.Files.Add(_createCSharp("IFileSystem", model.Namespace, "IFileSystem", model.Directory));
+            
+            model.Files.Add(_createCSharp("NamingConventionConverter", model.Namespace, "NamingConventionConverter", model.Directory));
+            
+            model.Files.Add(_createCSharp("INamingConventionConverter", model.Namespace, "INamingConventionConverter", model.Directory));
+            
+            model.Files.Add(_createCSharp("TenseConverter", model.Namespace, "TenseConverter", model.Directory));
+            
+            model.Files.Add(_createCSharp("ITenseConverter", model.Namespace, "ITenseConverter", model.Directory));
+            
+            model.Files.Add(_createCSharp("TemplateLocator", model.Namespace, "TemplateLocator", model.Directory));
+            
+            model.Files.Add(_createCSharp("ITemplateLocator", model.Namespace, "ITemplateLocator", model.Directory));
+            
+            model.Files.Add(_createCSharp("TokensBuilder", model.Namespace, "TokensBuilder", model.Directory));
+            
+            model.Files.Add(_createCSharp("LiquidTemplateProcessor", model.Namespace, "LiquidTemplateProcessor", model.Directory));
+            
+            model.Files.Add(_createCSharp("ITemplateProcessor", model.Namespace, "ITemplateProcessor", model.Directory));
+
+            model.Files.Add(_createCSharp("NamespaceProvider", model.Namespace, "NamespaceProvider", model.Directory));
+
+            model.Files.Add(_createCSharp("INamespaceProvider", model.Namespace, "INamespaceProvider", model.Directory));
+
+            model.Files.Add(_createCSharp("FileProvider", model.Namespace, "FileProvider", model.Directory));
+
+            model.Files.Add(_createCSharp("IFileProvider", model.Namespace, "IFileProvider", model.Directory));
+
+            model.Packages.Add(new("Microsoft.Extensions.Configuration", "6.0.0"));
+
+            model.Packages.Add(new("CSharpFunctionalExtensions", "2.15.0"));
+
+            model.Packages.Add(new("DotLiquid", "2.0.395"));
+
+            model.Packages.Add(new("Humanizer.Core", "2.14.1"));
+
+            model.Packages.Add(new("MediatR", "10.0.1"));
+
+            model.Packages.Add(new("Microsoft.CSharp", "4.7.0"));
+
+            model.Packages.Add(new("Microsoft.EntityFrameworkCore.Design", "6.0.0"));
+
+            model.Packages.Add(new("Microsoft.Extensions.DependencyInjection", "6.0.0"));
+
+            model.Packages.Add(new("Microsoft.Extensions.DependencyInjection.Abstractions", "6.0.0"));
+
+            model.Packages.Add(new("Microsoft.Extensions.Logging", "6.0.0"));
+
+            model.Packages.Add(new("Newtonsoft.Json", "12.0.3"));
+
+            model.Packages.Add(new("System.Collections", "4.3.0"));
+
+            model.Packages.Add(new("CommandLineParser", "2.8.0"));
+
+            model.Packages.Add(new("SharpSimpleNLG", "1.2.1"));
+
+            model.Packages.Add(new("System.Reactive", "5.0.0"));
+
+            return model;
+        }
+
+        public ProjectModel CreateApplication(string name, string parentDirectory, List<ProjectModel> references)
+        {
+            var model = new ProjectModel("classlib", name, parentDirectory, references);
+
+            model.Files.Add(_createCSharp("Default", model.Namespace, "Default", model.Directory));
+
+            return model;
+        }
+    }
+}
