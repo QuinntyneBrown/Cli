@@ -73,7 +73,17 @@ namespace Cli.Models
             var model = new ProjectModel("classlib", name, parentDirectory);
 
             model.Files.Add(_createCSharp("Token", model.Namespace, "Token", $"{model.Directory}{Path.DirectorySeparatorChar}ValueObjects"));
-            
+
+            model.Files.Add(_createCSharp("FileModel", model.Namespace, "FileModel", $"{model.Directory}{Path.DirectorySeparatorChar}Models"));
+
+            model.Files.Add(_createCSharp("FileFactory", model.Namespace, "FileFactory", $"{model.Directory}{Path.DirectorySeparatorChar}Factories"));
+
+            model.Files.Add(_createCSharp("IFileFactory", model.Namespace, "IFileFactory", $"{model.Directory}{Path.DirectorySeparatorChar}Factories"));
+
+            model.Files.Add(_createCSharp("FileGenerationStrategy", model.Namespace, "FileGenerationStrategy", $"{model.Directory}{Path.DirectorySeparatorChar}Strategies"));
+
+            model.Files.Add(_createCSharp("IFileGenerationStrategy", model.Namespace, "IFileGenerationStrategy", $"{model.Directory}{Path.DirectorySeparatorChar}Strategies"));
+
             model.Files.Add(_createCSharp("NamingConvention", model.Namespace, "NamingConvention", $"{model.Directory}{Path.DirectorySeparatorChar}Services"));
             
             model.Files.Add(_createCSharp("CommandService", model.Namespace, "CommandService", $"{model.Directory}{Path.DirectorySeparatorChar}Services"));

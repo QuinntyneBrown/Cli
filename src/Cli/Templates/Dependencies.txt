@@ -26,6 +26,8 @@ namespace {{ namespace }}
             services.AddSingleton<ITenseConverter, TenseConverter>();
             services.AddSingleton<INamespaceProvider, NamespaceProvider>();
             services.AddSingleton<IFileProvider, FileProvider>();
+            services.AddSingleton<IFileFactory,FileFactory>();
+            services.AddSingleton<IFileGenerationStrategy,FileGenerationStrategy>();
             services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
             
         }
