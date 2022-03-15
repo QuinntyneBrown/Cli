@@ -1,5 +1,7 @@
 ﻿using Cli.Models;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Linq;
 
 namespace Cli.Strategies
 {
@@ -30,6 +32,18 @@ namespace Cli.Strategies
             var template = _templateLocator.Get(model.Template);
 
             var result = model.Tokens == null ? template : _templateProcessor.Process(template, model.Tokens);
+
+            var parts = Path.GetDirectoryName(model.Path).Split(Path.DirectorySeparatorChar);
+
+            for(var i = 1; i <= parts.Length; i++)
+            {
+                var path = string.Join(Path.DirectorySeparatorChar, parts.Take(i));
+
+                if (!_fileSystem.Exists(path))
+                {
+                    _fileSystem.CreateDirectory(path);
+                }
+            }
 
             _fileSystem.WriteAllLines(model.Path, result);
         }
