@@ -26,7 +26,7 @@ namespace Cli.Strategies
             _csProjFileManager = csProjFileManager;
         }
 
-        public void Create(CliProjectModel model)
+        public void Create(ProjectModel model)
         {
             foreach(var path in Directory.GetFiles(model.Directory,"*.cs",SearchOption.AllDirectories))
             {

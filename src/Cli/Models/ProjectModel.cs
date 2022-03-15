@@ -2,27 +2,27 @@
 
 namespace Cli.Models
 {
-    public class CliProjectModel
+    public class ProjectModel
     {
         public string Name { get; private set; }
         public string Directory { get; private set; }
         public string Path => $"{Directory}{System.IO.Path.DirectorySeparatorChar}{Name}.csproj";
         public string Namespace => Name;
         public string Type { get; set; }
-        public List<CliProjectModel> References { get; set; } = new List<CliProjectModel>();
+        public List<ProjectModel> References { get; set; } = new List<ProjectModel>();
         public List<FileModel> Files { get; private set; } = new List<FileModel>();
         public List<PackageModel> Packages { get; private set; } = new();
         public bool HasSecrets { get; init; }
         public bool IsNugetPackage { get; init; }
         public int Order { get; init; } = 0;
 
-        public CliProjectModel(string type, string name, string parentDirectory, List<CliProjectModel> references)
+        public ProjectModel(string type, string name, string parentDirectory, List<ProjectModel> references)
             :this(type, name, parentDirectory)
         {
             References = references;
         }
 
-        public CliProjectModel(string type, string name, string parentDirectory)
+        public ProjectModel(string type, string name, string parentDirectory)
         {
             Type = type;
 
@@ -31,9 +31,9 @@ namespace Cli.Models
             Directory = $"{parentDirectory}{System.IO.Path.DirectorySeparatorChar}{name}";
         }
 
-        public static CliProjectModel CreateCli(string name, string parentDirectory, List<CliProjectModel> references)
+        public static ProjectModel CreateCli(string name, string parentDirectory, List<ProjectModel> references)
         {
-            var model = new CliProjectModel("console", name, parentDirectory, references)
+            var model = new ProjectModel("console", name, parentDirectory, references)
             {
                 HasSecrets = true,
                 IsNugetPackage = true,
@@ -64,9 +64,9 @@ namespace Cli.Models
             return model;
         }
 
-        public static CliProjectModel CreateCore(string name, string parentDirectory)
+        public static ProjectModel CreateCore(string name, string parentDirectory)
         {
-            var model = new CliProjectModel("classlib", name, parentDirectory);
+            var model = new ProjectModel("classlib", name, parentDirectory);
 
             model.Files.Add(new ("Token", model.Namespace, "Token", model.Directory));
             
@@ -139,16 +139,16 @@ namespace Cli.Models
             return model;
         }
 
-        public static CliProjectModel CreateApplication(string name, string parentDirectory, List<CliProjectModel> references)
+        public static ProjectModel CreateApplication(string name, string parentDirectory, List<ProjectModel> references)
         {
-            var model = new CliProjectModel("classlib", name, parentDirectory, references);
+            var model = new ProjectModel("classlib", name, parentDirectory, references);
 
             model.Files.Add(new ("Default", model.Namespace, "Default", model.Directory));
 
             return model;
         }
 
-        public CliProjectModel()
+        public ProjectModel()
         {
 
         }

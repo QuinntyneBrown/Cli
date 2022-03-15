@@ -20,7 +20,7 @@ namespace Cli.Services
             doc.Save(csprojFilePath);
         }
 
-        public void AddNugetConfiguration(CliProjectModel model)
+        public void AddNugetConfiguration(ProjectModel model)
         {
             var doc = XDocument.Load(model.Path);
             var projectNode = doc.FirstNode as XElement;
