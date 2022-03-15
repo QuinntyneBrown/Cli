@@ -1,3 +1,4 @@
+using Cli.Factories;
 using Cli.Models;
 using Cli.Services;
 using Cli.Strategies;
@@ -50,7 +51,7 @@ namespace Cli
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                FileModel model = new FileModel("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
+                FileModel model = FileFactory.CreateCSharp("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
 
                 new FileGenerationStrategy(_fileSystem,_templateLocator,_templateProcessor, _solutionNamespaceProvider, _logger).Create(model);
 

@@ -4,29 +4,18 @@ namespace Cli.Models
 {
     public partial class FileModel
     {
-        public string Template { get; private set; }
-        public string Name { get; set; }
-        public string Namespace { get; set; }
-        public string Directory { get; private set; }
-        public string Extension { get; private set; }
+        public string Template { get; init; }
+        public string Name { get; init; }
+        public string Namespace { get; init; }
+        public string Directory { get; init; }
+        public string Extension { get; init; }
         public string Path => $"{Directory}{System.IO.Path.DirectorySeparatorChar}{Name}.{Extension}";
-        public Dictionary<string, object> Tokens { get; private set; } = new();
-        public FileModel(string template, string @namespace, string name, string directory, Dictionary<string,object> tokens = null)
+        public Dictionary<string, object> Tokens { get; init; }
+
+        internal FileModel()
         {
-            Template = template;
-            Namespace = @namespace;
-            Name = name;
-            Directory = directory;
-            Tokens = tokens ?? new TokensBuilder()
-                .With(nameof(Name), (Token)Name)
-                .With(nameof(Namespace), (Token)Namespace)
-                .Build();
+
         }
 
-        public FileModel(string template, string @namespace, string name, string directory, string extension, Dictionary<string, object> tokens = null)
-            :this(template, @namespace, name, directory)
-        {
-            Extension = extension;
-        }
     }
 }
