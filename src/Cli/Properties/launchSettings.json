@@ -2,7 +2,7 @@
   "profiles": {
     "Cli": {
       "commandName": "Project",
-      "commandLineArgs": "--name Bicep.Extensions9 -d C:\\sandbox"
+      "commandLineArgs": "git"
     }
   }
 }
