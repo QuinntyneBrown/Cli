@@ -1,7 +1,7 @@
-﻿namespace {{ namespace }}
+
+namespace {{ namespace }};
+
+public interface IFileGenerationStrategy
 {
-    public interface IFileGenerationStrategy
-    {
-        void Create(FileModel model);
-    }
+    void Create(FileModel model);
 }

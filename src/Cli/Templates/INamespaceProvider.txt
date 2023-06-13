@@ -1,8 +1,8 @@
-﻿
-namespace {{ namespace }}
+
+
+namespace {{ namespace }};
+
+public interface INamespaceProvider
 {
-    public interface INamespaceProvider
-    {
-        string Get(string directory, int depth = 0);
-    }
+    string Get(string directory, int depth = 0);
 }
