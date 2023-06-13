@@ -26,13 +26,13 @@ public class FileGenerationStrategy
         _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
     }
 
-    public void Create(FileModel model)
+    public void Create(TemplateFileModel model)
     {
         _logger.LogInformation($"Creating {model.Name} file at {model.Path}");
 
         var template = _templateLocator.Get(model.Template);
 
-        var result = model.Tokens == null ? template : _templateProcessor.Process(template, model.Tokens);
+        var result = model.ViewModel == null ? template : _templateProcessor.Process(template, model.ViewModel);
 
         var parts = Path.GetDirectoryName(model.Path).Split(Path.DirectorySeparatorChar);
 

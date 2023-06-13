@@ -15,7 +15,7 @@ public class FileFactory : IFileFactory
         _solutionNamespaceProvider = solutionNamespaceProvider;
     }
 
-    public FileModel CreateCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null)
+    public TemplateFileModel CreateCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null)
     {
         if (tokens != null)
         {
@@ -31,7 +31,7 @@ public class FileFactory : IFileFactory
             Directory = directory,
             Template = template,
             Name = name,
-            Tokens = tokens ?? new TokensBuilder()
+            ViewModel = tokens ?? new TokensBuilder()
             .With("Name", (Token)name)
             .With("Namespace", (Token)@namespace)
             .With("SolutionNamespace", (Token)_solutionNamespaceProvider.Get(directory))
@@ -41,7 +41,7 @@ public class FileFactory : IFileFactory
     }
 
 
-    public FileModel CreatePowershell(string template, string name, string directory)
+    public TemplateFileModel CreatePowershell(string template, string name, string directory)
         => new()
         {
             Extension = "ps1",

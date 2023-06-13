@@ -5,12 +5,6 @@ using System.IO;
 
 namespace Cli.Models;
 
-public interface IProjectFactory
-{
-    ProjectModel CreateCli(string name, string parentDirectory, List<ProjectModel> references);
-    ProjectModel CreateCore(string name, string parentDirectory);
-    ProjectModel CreateApplication(string name, string parentDirectory, List<ProjectModel> references);
-}
 public class ProjectFactory : IProjectFactory
 {
     private readonly IFileFactory _fileFactory;
@@ -20,12 +14,12 @@ public class ProjectFactory : IProjectFactory
         _fileFactory = fileFactory;
     }
 
-    private FileModel _createCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null)
+    private TemplateFileModel _createCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null)
     {
         return _fileFactory.CreateCSharp(template, @namespace, name, directory, tokens);
     }
 
-    private FileModel _createPowershell(string template, string name, string directory)
+    private TemplateFileModel _createPowershell(string template, string name, string directory)
     {
         return _fileFactory.CreatePowershell(template, name, directory);
     }
@@ -69,13 +63,17 @@ public class ProjectFactory : IProjectFactory
         return model;
     }
 
-    public ProjectModel CreateCore(string name, string parentDirectory)
+    public ProjectModel CreateApplication(string name, string parentDirectory)
     {
         var model = new ProjectModel("classlib", name, parentDirectory);
+
+        model.Files.Add(_createCSharp("Default", model.Namespace, "Default", $"{model.Directory}{Path.DirectorySeparatorChar}Commands"));
 
         model.Files.Add(_createCSharp("Token", model.Namespace, "Token", $"{model.Directory}{Path.DirectorySeparatorChar}ValueObjects"));
 
         model.Files.Add(_createCSharp("FileModel", model.Namespace, "FileModel", $"{model.Directory}{Path.DirectorySeparatorChar}Models"));
+
+        model.Files.Add(_createCSharp("TemplateFileModel", model.Namespace, "TemplateFileModel", $"{model.Directory}{Path.DirectorySeparatorChar}Models"));
 
         model.Files.Add(_createCSharp("FileFactory", model.Namespace, "FileFactory", $"{model.Directory}{Path.DirectorySeparatorChar}Factories"));
 
@@ -150,15 +148,6 @@ public class ProjectFactory : IProjectFactory
         model.Packages.Add(new("SharpSimpleNLG", "1.2.1"));
 
         model.Packages.Add(new("System.Reactive", "5.0.0"));
-
-        return model;
-    }
-
-    public ProjectModel CreateApplication(string name, string parentDirectory, List<ProjectModel> references)
-    {
-        var model = new ProjectModel("classlib", name, parentDirectory, references);
-
-        model.Files.Add(_createCSharp("Default", model.Namespace, "Default", $"{model.Directory}{Path.DirectorySeparatorChar}Commands"));
 
         return model;
     }

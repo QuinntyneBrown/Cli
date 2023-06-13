@@ -1,0 +1,10 @@
+using System.Collections.Generic;
+
+
+namespace {{ namespace }};
+
+public class TemplateFileModel: FileModel
+{
+    public string Template { get; init; }
+    public dynamic ViewModel { get; init; }
+}

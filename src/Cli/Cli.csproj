@@ -10,44 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Templates\CommandService.txt" />
-    <None Remove="Templates\ConsoleLogger.txt" />
-    <None Remove="Templates\Default.txt" />
-    <None Remove="Templates\Dependencies.txt" />
-    <None Remove="Templates\FileFactory.txt" />
-    <None Remove="Templates\FileGenerationStrategy.txt" />
-    <None Remove="Templates\FileModel.txt" />
-    <None Remove="Templates\FileProvider.txt" />
-    <None Remove="Templates\FileSystem.txt" />
-    <None Remove="Templates\GitIgnore.txt" />
-    <None Remove="Templates\ICommandService.txt" />
-    <None Remove="Templates\IFileFactory.txt" />
-    <None Remove="Templates\IFileGenerationStrategy.txt" />
-    <None Remove="Templates\IFileProvider.txt" />
-    <None Remove="Templates\IFileSystem.txt" />
-    <None Remove="Templates\INamespaceProvider.txt" />
-    <None Remove="Templates\INamingConventionConverter.txt" />
-    <None Remove="Templates\InMemoryFileSystem.txt" />
-    <None Remove="Templates\ITemplateLocator.txt" />
-    <None Remove="Templates\ITemplateProcessor.txt" />
-    <None Remove="Templates\ITenseConverter.txt" />
-    <None Remove="Templates\ITokenBuilder.txt" />
-    <None Remove="Templates\LiquidTemplateProcessor.txt" />
-    <None Remove="Templates\LoggerOptions.txt" />
-    <None Remove="Templates\LoggerProvider.txt" />
-    <None Remove="Templates\NamespaceProvider.txt" />
-    <None Remove="Templates\NamingConvention.txt" />
-    <None Remove="Templates\NamingConventionConverter.txt" />
-    <None Remove="Templates\Program.txt" />
-    <None Remove="Templates\TemplateLocator.txt" />
-    <None Remove="Templates\TenseConverter.txt" />
-    <None Remove="Templates\Token.txt" />
-    <None Remove="Templates\TokensBuilder.txt" />
-    <None Remove="Templates\Update.txt" />
-    <None Remove="Templates\Verb.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Include="Templates\TemplateFileModel.txt" />
     <EmbeddedResource Include="Templates\GitIgnore.txt" />
     <EmbeddedResource Include="Templates\FileFactory.txt" />
     <EmbeddedResource Include="Templates\IFileGenerationStrategy.txt" />

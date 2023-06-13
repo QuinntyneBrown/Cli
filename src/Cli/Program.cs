@@ -3,50 +3,46 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using Cli;
 
 
-namespace Cli;
 
-class Program
+var mediator = BuildContainer().GetService<IMediator>();
+
+ProcessArgs(mediator, args);
+
+
+static Parser _createParser() => new(options =>
 {
-    static void Main(string[] args)
-    {
-        var mediator = BuildContainer().GetService<IMediator>();
+    options.CaseSensitive = false;
+    options.HelpWriter = Console.Out;
+    options.IgnoreUnknownArguments = true;
+});
 
-        ProcessArgs(mediator, args);
-    }
+static ServiceProvider BuildContainer()
+{
+    var services = new ServiceCollection();
 
-    private static Parser _createParser() => new(options =>
-    {
-        options.CaseSensitive = false;
-        options.HelpWriter = Console.Out;
-        options.IgnoreUnknownArguments = true;
-    });
+    Dependencies.Configure(services);
 
-    public static ServiceProvider BuildContainer()
-    {
-        var services = new ServiceCollection();
-
-        Dependencies.Configure(services);
-
-        return services.BuildServiceProvider();
-    }
-
-    public static void ProcessArgs(IMediator mediator, string[] args)
-    {
-        if (args.Length == 0 || args[0].StartsWith("-"))
-        {
-            args = new string[1] { "default" }.Concat(args).ToArray();
-        }
-
-        var verbs = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(s => s.GetTypes())
-            .Where(type => type.GetCustomAttributes(typeof(VerbAttribute), true).Length > 0)
-            .ToArray();
-
-        _createParser().ParseArguments(args, verbs)
-            .WithParsed(
-              (dynamic request) => mediator.Send(request));
-    }
+    return services.BuildServiceProvider();
 }
+
+static void ProcessArgs(IMediator mediator, string[] args)
+{
+    if (args.Length == 0 || args[0].StartsWith("-"))
+    {
+        args = new string[1] { "default" }.Concat(args).ToArray();
+    }
+
+    var verbs = AppDomain.CurrentDomain.GetAssemblies()
+        .SelectMany(s => s.GetTypes())
+        .Where(type => type.GetCustomAttributes(typeof(VerbAttribute), true).Length > 0)
+        .ToArray();
+
+    _createParser().ParseArguments(args, verbs)
+        .WithParsed(
+            (dynamic request) => mediator.Send(request));
+}
+
 

@@ -1,10 +1,9 @@
-
 namespace {{ namespace }};
 
 
 public class FileFactory: IFileFactory
 {
-    public FileModel Create(string template, string name, string directory, string extension)
+    public TemplateFileModel Create(string template, string name, string directory, string extension)
         => new()
         {
             Extension = extension,

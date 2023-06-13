@@ -18,10 +18,9 @@ public class SolutionFactory : ISolutionFactory
     public SolutionModel CreateCli(string name, string directory)
     {
         var model = new SolutionModel(name, directory);
-        var coreProject = _projectFactory.CreateCore($"{model.Name}.Core", model.SrcDirectory);
-        var applicationProject = _projectFactory.CreateApplication($"{model.Name}.Application", model.SrcDirectory, new() { coreProject });
+        var applicationProject = _projectFactory.CreateApplication($"{model.Name}", model.SrcDirectory);
         var cliProject = _projectFactory.CreateCli($"{model.Name}.Cli", model.SrcDirectory, new() { applicationProject });
-        model.Projects.AddRange(new List<ProjectModel> { coreProject, applicationProject, cliProject });
+        model.Projects.AddRange(new List<ProjectModel> { applicationProject, cliProject });
         return model;
     }
 }

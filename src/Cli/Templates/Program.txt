@@ -3,9 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-
-
-namespace {{ namespace }};
+using {{ namespace }};
 
 var mediator = BuildContainer().GetService<IMediator>();
 

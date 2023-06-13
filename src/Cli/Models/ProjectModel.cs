@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cli.Models;
 
-public partial class ProjectModel
+public class ProjectModel
 {
     public string Name { get; private set; }
     public string Directory { get; private set; }
@@ -11,7 +11,7 @@ public partial class ProjectModel
     public string Namespace => Name;
     public string Type { get; set; }
     public List<ProjectModel> References { get; set; } = new List<ProjectModel>();
-    public List<FileModel> Files { get; private set; } = new List<FileModel>();
+    public List<TemplateFileModel> Files { get; private set; } = new List<TemplateFileModel>();
     public List<PackageModel> Packages { get; private set; } = new();
     public bool HasSecrets { get; init; }
     public bool IsNugetPackage { get; init; }

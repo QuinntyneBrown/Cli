@@ -6,6 +6,6 @@ namespace Cli.Factories;
 
 public interface IFileFactory
 {
-    FileModel CreateCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null);
-    FileModel CreatePowershell(string template, string name, string directory);
+    TemplateFileModel CreateCSharp(string template, string @namespace, string name, string directory, Dictionary<string, object> tokens = null);
+    TemplateFileModel CreatePowershell(string template, string name, string directory);
 }

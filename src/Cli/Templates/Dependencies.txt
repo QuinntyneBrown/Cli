@@ -1,8 +1,7 @@
-using Microsoft.Extensions.Logging;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MediatR;
-using {{ coreNamespace }};
+using Microsoft.Extensions.Logging;
 
 
 namespace {{ namespace }};
@@ -11,6 +10,8 @@ public class Dependencies
 {
     public static void Configure(IServiceCollection services)
     {
+        services.AddLogging();
+
         services.AddMediatR(typeof({{ applicationNamespace }}.Default));
 
         var configuration = new ConfigurationBuilder()
@@ -28,16 +29,6 @@ public class Dependencies
         services.AddSingleton<INamespaceProvider, NamespaceProvider>();
         services.AddSingleton<IFileProvider, FileProvider>();
         services.AddSingleton<IFileFactory,FileFactory>();
-        services.AddSingleton<IFileGenerationStrategy,FileGenerationStrategy>();
-        services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
-
-    }
-
-    private static ILoggerFactory CreateLoggerFactory()
-    {
-        return LoggerFactory.Create(builder =>
-        {
-            builder.AddProvider(new LoggerProvider(new LoggerOptions(true, ConsoleColor.Red, ConsoleColor.DarkYellow, Console.Out)));
-        });
+        services.AddSingleton<IFileGenerationStrategy, TemplateFileGenerationStrategy>();        
     }
 }

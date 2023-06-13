@@ -2,7 +2,7 @@
   "profiles": {
     "Cli": {
       "commandName": "Project",
-      "commandLineArgs": "git"
+      "commandLineArgs": "default -d C:\\projects -n CodeGenerator"
     }
   }
 }

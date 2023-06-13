@@ -56,7 +56,7 @@ internal class Verb
 
         public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
         {
-            FileModel model = _fileFactory.CreateCSharp("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
+            TemplateFileModel model = _fileFactory.CreateCSharp("Verb", request.Namespace ?? _namespaceProvider.Get(request.Directory), request.Name, request.Directory);
 
             new FileGenerationStrategy(_fileSystem, _templateLocator, _templateProcessor, _logger).Create(model);
 
