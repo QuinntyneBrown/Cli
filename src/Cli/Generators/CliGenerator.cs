@@ -1,12 +1,12 @@
-﻿using Cli.Strategies;
+using Cli.Strategies;
 
-namespace Cli.Generators
+
+namespace Cli.Generators;
+
+public static class CliGenerator
 {
-    public static class CliGenerator
+    public static void Create(CreateCliRequest request, ICliGenerationStrategyFactory factory)
     {
-        public static void Create(CreateCliRequest request, ICliGenerationStrategyFactory factory)
-        {
-            factory.CreateFor(request);
-        }
+        factory.CreateFor(request);
     }
 }

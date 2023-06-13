@@ -1,8 +1,8 @@
-﻿namespace Cli.Strategies
+
+namespace Cli.Strategies;
+
+public interface ICliGenerationStrategy
 {
-    public interface ICliGenerationStrategy
-    {
-        bool CanHandle(CreateCliRequest request);
-        void Create(CreateCliRequest request);
-    }
+    bool CanHandle(CreateCliRequest request);
+    void Create(CreateCliRequest request);
 }

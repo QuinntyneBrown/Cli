@@ -1,14 +1,14 @@
-﻿using Cli.Models;
+using Cli.Models;
 
-namespace Cli
+
+namespace Cli;
+
+public class CreateCliRequest
 {
-    public class CreateCliRequest
-    {
-        public SolutionModel Model { get; init; }
+    public SolutionModel Model { get; init; }
 
-        public CreateCliRequest(SolutionModel model)
-        {
-            Model = model;
-        }
+    public CreateCliRequest(SolutionModel model)
+    {
+        Model = model;
     }
 }

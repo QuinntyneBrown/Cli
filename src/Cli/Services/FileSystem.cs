@@ -1,61 +1,61 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 
-namespace Cli
+
+namespace Cli;
+
+public class FileSystem : IFileSystem
 {
-    public class FileSystem : IFileSystem
+    public bool Exists(string path)
+        => File.Exists(path);
+
+    public bool Exists(string[] paths)
+        => paths.Any(x => Exists(x));
+
+    public Stream OpenRead(string path)
+        => File.OpenRead(path);
+
+    public string ReadAllText(string path)
+        => File.ReadAllText(path);
+
+    public void WriteAllLines(string path, string[] contents)
     {
-        public bool Exists(string path)
-            => File.Exists(path);
+        File.WriteAllLines(path, contents);
+    }
 
-        public bool Exists(string[] paths)
-            => paths.Any(x => Exists(x));
+    public string ParentFolder(string path)
+    {
+        var directories = path.Split(Path.DirectorySeparatorChar);
 
-        public Stream OpenRead(string path)
-            => File.OpenRead(path);
+        string parentFolderPath = string.Join($"{Path.DirectorySeparatorChar}", directories.ToList()
+            .Take(directories.Length - 1));
 
-        public string ReadAllText(string path)
-            => File.ReadAllText(path);
+        return parentFolderPath;
+    }
 
-        public void WriteAllLines(string path, string[] contents)
+    public void CreateDirectory(string directory)
+    {
+        System.IO.Directory.CreateDirectory(directory);
+    }
+
+    public void Delete(string path)
+    {
+        if (File.Exists(path))
         {
-            File.WriteAllLines(path, contents);
+            File.Delete(path);
         }
+    }
 
-        public string ParentFolder(string path)
+    public void DeleteDirectory(string directory)
+    {
+        if (Directory.Exists(directory))
         {
-            var directories = path.Split(Path.DirectorySeparatorChar);
-
-            string parentFolderPath = string.Join($"{Path.DirectorySeparatorChar}", directories.ToList()
-                .Take(directories.Length - 1));
-
-            return parentFolderPath;
+            Directory.Delete(directory, true);
         }
+    }
 
-        public void CreateDirectory(string directory)
-        {
-            System.IO.Directory.CreateDirectory(directory);
-        }
-
-        public void Delete(string path)
-        {
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-        }
-
-        public void DeleteDirectory(string directory)
-        {
-            if(Directory.Exists(directory))
-            {
-                Directory.Delete(directory, true); 
-            }
-        }
-
-        public string[] ReadAllLines(string path)
-        {
-            return File.ReadAllLines(path);
-        }
+    public string[] ReadAllLines(string path)
+    {
+        return File.ReadAllLines(path);
     }
 }

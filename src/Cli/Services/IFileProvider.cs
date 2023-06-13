@@ -1,7 +1,7 @@
-﻿namespace Cli.Services
+
+namespace Cli.Services;
+
+public interface IFileProvider
 {
-    public interface IFileProvider
-    {
-        string Get(string searchPattern, string directory, int depth = 0);
-    }
+    string Get(string searchPattern, string directory, int depth = 0);
 }

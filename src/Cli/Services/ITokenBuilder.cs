@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace Cli
+
+namespace Cli;
+
+public interface ITokenBuilder
 {
-    public interface ITokenBuilder
-    {
-        Dictionary<string, object> Build(IDictionary<string, string> args, string directory);
-        string Get(string key, IDictionary<string, string> args);
-    }
+    Dictionary<string, object> Build(IDictionary<string, string> args, string directory);
+    string Get(string key, IDictionary<string, string> args);
 }

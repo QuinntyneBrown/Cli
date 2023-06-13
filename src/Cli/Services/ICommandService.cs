@@ -1,7 +1,7 @@
-﻿namespace Cli
+
+namespace Cli;
+
+public interface ICommandService
 {
-    public interface ICommandService
-    {
-        void Start(string command, string workingDirectory = null, bool waitForExit = true);
-    }
+    void Start(string command, string workingDirectory = null, bool waitForExit = true);
 }

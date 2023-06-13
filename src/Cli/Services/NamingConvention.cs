@@ -1,13 +1,13 @@
-﻿namespace Cli
+
+namespace Cli;
+
+public enum NamingConvention
 {
-    public enum NamingConvention
-    {
-        PascalCase,
-        CamelCase,
-        SnakeCase,
-        TitleCase,
-        AllCaps,
-        KebobCase,
-        None
-    }
+    PascalCase,
+    CamelCase,
+    SnakeCase,
+    TitleCase,
+    AllCaps,
+    KebobCase,
+    None
 }

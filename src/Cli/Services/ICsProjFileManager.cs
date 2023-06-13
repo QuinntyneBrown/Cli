@@ -1,10 +1,10 @@
-﻿using Cli.Models;
+using Cli.Models;
 
-namespace Cli.Services
+
+namespace Cli.Services;
+
+public interface ICsProjFileManager
 {
-    public interface ICsProjFileManager
-    {
-        void AddUserSecretsId(string csprojFilePath);
-        void AddNugetConfiguration(ProjectModel model);
-    }
+    void AddUserSecretsId(string csprojFilePath);
+    void AddNugetConfiguration(ProjectModel model);
 }

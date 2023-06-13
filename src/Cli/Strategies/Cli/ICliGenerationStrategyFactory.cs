@@ -1,7 +1,7 @@
-﻿namespace Cli.Strategies
+
+namespace Cli.Strategies;
+
+public interface ICliGenerationStrategyFactory
 {
-    public interface ICliGenerationStrategyFactory
-    {
-        void CreateFor(CreateCliRequest request);
-    }
+    void CreateFor(CreateCliRequest request);
 }

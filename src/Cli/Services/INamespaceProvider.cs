@@ -1,8 +1,8 @@
-﻿
-namespace Cli.Services
+
+
+namespace Cli.Services;
+
+public interface INamespaceProvider
 {
-    public interface INamespaceProvider
-    {
-        string Get(string directory, int depth = 0);
-    }
+    string Get(string directory, int depth = 0);
 }

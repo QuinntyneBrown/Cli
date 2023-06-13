@@ -1,6 +1,6 @@
-﻿namespace Cli.Generators
+
+namespace Cli.Generators;
+
+public static class VerbGenerator
 {
-    public static class VerbGenerator
-    {
-    }
 }
