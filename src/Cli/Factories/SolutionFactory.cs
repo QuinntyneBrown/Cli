@@ -3,11 +3,6 @@ using System.Collections.Generic;
 
 namespace Cli.Models;
 
-public interface ISolutionFactory
-{
-    SolutionModel CreateCli(string name, string directory);
-}
-
 public class SolutionFactory : ISolutionFactory
 {
     private readonly IProjectFactory _projectFactory;

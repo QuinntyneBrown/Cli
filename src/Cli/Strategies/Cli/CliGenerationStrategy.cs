@@ -10,9 +10,9 @@ internal class CliGenerationStrategy : ICliGenerationStrategy
 {
     private readonly ICommandService _commandService;
     private readonly IFileSystem _fileSystem;
-    private readonly ILogger _logger;
+    private readonly ILogger<CliGenerationStrategy> _logger;
     private readonly ProjectGenerationStrategy _projectGenerationStrategy;
-    public CliGenerationStrategy(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
+    public CliGenerationStrategy(ICommandService commandService, ILogger<CliGenerationStrategy> logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
     {
         _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

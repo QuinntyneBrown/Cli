@@ -2,11 +2,6 @@ using System.IO;
 
 
 namespace Cli.Services;
-
-public interface ISolutionNamespaceProvider
-{
-    string Get(string directory);
-}
 public class SolutionNamespaceProvider : ISolutionNamespaceProvider
 {
     private readonly IFileProvider _fileProvider;

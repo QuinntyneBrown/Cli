@@ -11,7 +11,7 @@ internal class CliGenerationStrategyFactory : ICliGenerationStrategyFactory
 {
     private readonly List<ICliGenerationStrategy> _strategies;
 
-    public CliGenerationStrategyFactory(ICommandService commandService, ILogger logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
+    public CliGenerationStrategyFactory(ICommandService commandService, ILogger<CliGenerationStrategy> logger, IFileSystem fileSystem, ITemplateLocator templateLocator, ITemplateProcessor templateProcessor, ICsProjFileManager csProjFileManager, ISolutionNamespaceProvider solutionNamespaceProvider)
     {
         _strategies = new List<ICliGenerationStrategy>()
         {

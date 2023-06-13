@@ -8,8 +8,8 @@ namespace Cli;
 
 public class CommandService : ICommandService
 {
-    private readonly ILogger _logger;
-    public CommandService(ILogger logger)
+    private readonly ILogger<CommandService> _logger;
+    public CommandService(ILogger<CommandService> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }

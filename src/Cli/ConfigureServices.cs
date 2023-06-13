@@ -7,21 +7,21 @@ using System;
 using Cli.Services;
 using Cli.Factories;
 using Cli.Models;
+using Cli;
 
+namespace Microsoft.Extensions.Logging;
 
-namespace Cli;
-
-public class Dependencies
+public static class ConfigureServices
 {
-    public static void Configure(IServiceCollection services)
+    public static void AddCliServices(this IServiceCollection services)
     {
+        services.AddLogging();
         services.AddMediatR(typeof(Program));
         services.AddSingleton<ICliGenerationStrategyFactory, CliGenerationStrategyFactory>();
         services.AddSingleton<ICommandService, CommandService>();
         services.AddSingleton<IFileSystem, FileSystem>();
         services.AddSingleton<ITemplateLocator, TemplateLocator>();
         services.AddSingleton<ITemplateProcessor, LiquidTemplateProcessor>();
-        services.AddSingleton(CreateLoggerFactory().CreateLogger("cli"));
         services.AddSingleton<ICsProjFileManager, CsProjFileManager>();
         services.AddSingleton<INamespaceProvider, NamespaceProvider>();
         services.AddSingleton<IFileProvider, FileProvider>();
@@ -36,13 +36,5 @@ public class Dependencies
 
         services.AddSingleton<IConfiguration>(_ => configuration);
 
-    }
-
-    private static ILoggerFactory CreateLoggerFactory()
-    {
-        return LoggerFactory.Create(builder =>
-        {
-            builder.AddProvider(new LoggerProvider(new LoggerOptions(true, ConsoleColor.Red, ConsoleColor.DarkYellow, Console.Out)));
-        });
     }
 }

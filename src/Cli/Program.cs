@@ -1,16 +1,14 @@
 using CommandLine;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using Cli;
-
-
+using System.Threading.Tasks;
 
 var mediator = BuildContainer().GetService<IMediator>();
 
-ProcessArgs(mediator, args);
-
+await ProcessArgsAsync(mediator, args);
 
 static Parser _createParser() => new(options =>
 {
@@ -21,14 +19,14 @@ static Parser _createParser() => new(options =>
 
 static ServiceProvider BuildContainer()
 {
-    var services = new ServiceCollection();
+    IServiceCollection services = new ServiceCollection();
 
-    Dependencies.Configure(services);
+    services.AddCliServices();
 
     return services.BuildServiceProvider();
 }
 
-static void ProcessArgs(IMediator mediator, string[] args)
+static async Task ProcessArgsAsync(IMediator mediator, string[] args)
 {
     if (args.Length == 0 || args[0].StartsWith("-"))
     {
@@ -40,9 +38,9 @@ static void ProcessArgs(IMediator mediator, string[] args)
         .Where(type => type.GetCustomAttributes(typeof(VerbAttribute), true).Length > 0)
         .ToArray();
 
-    _createParser().ParseArguments(args, verbs)
-        .WithParsed(
-            (dynamic request) => mediator.Send(request));
+    var result = _createParser().ParseArguments(args, verbs);
+
+    await mediator.Send(result!.Value);
 }
 
 

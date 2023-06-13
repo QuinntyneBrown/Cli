@@ -10,15 +10,19 @@ namespace Cli;
 
 public class LiquidTemplateProcessor : ITemplateProcessor
 {
-    private readonly ILogger _logger;
-    public LiquidTemplateProcessor(ILogger logger)
+    private readonly ILogger<LiquidTemplateProcessor> _logger;
+    public LiquidTemplateProcessor(ILogger<LiquidTemplateProcessor> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public string[] Process(string[] template, IDictionary<string, object> tokens, string[] ignoreTokens = null)
+    public string[] Process(string[] template, dynamic model)
     {
         Hash hash = default;
+
+        string[] ignoreTokens = null;
+
+        var tokens = model as IDictionary<string, object>;
 
         try
         {
@@ -54,11 +58,11 @@ public class LiquidTemplateProcessor : ITemplateProcessor
         }
     }
 
-    public string Process(string template, IDictionary<string, object> tokens)
+    public string Process(string template, dynamic model)
     {
         try
         {
-            var hash = Hash.FromDictionary(tokens);
+            var hash = Hash.FromDictionary(model);
 
             var liquidTemplate = Template.Parse(template);
 
